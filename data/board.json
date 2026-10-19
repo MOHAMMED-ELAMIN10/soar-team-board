@@ -40,7 +40,7 @@
    "id": "m6",
    "name": "Member 6",
    "track": "Dashboard & Integration",
-   "github": ""
+   "github": "Mohamed-Mensh-06"
   }
  ],
  "phases": [
@@ -1130,13 +1130,18 @@
  ],
  "activity": [
   {
+   "at": "2026-10-19T18:00:15.747Z",
+   "by": "@MOHAMMED-ELAMIN10",
+   "text": "updated the team members"
+  },
+  {
    "at": "2026-10-19T17:00:00.000Z",
    "by": "Handbook import",
    "text": "Board created from the Team Handbook: 10 phases, 49 tasks."
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-19T17:00:00.000Z",
-  "updatedBy": "Handbook import"
+  "updatedAt": "2026-10-19T18:00:15.747Z",
+  "updatedBy": "@MOHAMMED-ELAMIN10"
  }
 }
