@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SOAR Team Board</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d6b6e'/%3E%3Cpath d='M8 17l5 5 11-12' stroke='white' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+<script>
+/* ============================================================
+   CONFIGURATION — usually nothing to change.
+   On GitHub Pages (https://OWNER.github.io/REPO/) the owner and
+   repository are detected from the address automatically.
+   Fill these in only if you host the page somewhere else.
+   ============================================================ */
+window.BOARD_CONFIG = {
+  owner: "",                 // e.g. "soar-team"
+  repo: "",                  // e.g. "soar-team-board"
+  dataBranch: "board-data",  // shared data lives on this branch (created automatically)
+  dataPath: "data/board.json"
+};
+</script>
+<style>
+:root{
+  --bg:#eef2f1; --surface:#ffffff; --surface-2:#f6f8f8; --line:#d3dcdb; --line-2:#e4eaea;
+  --fg:#142224; --muted:#5a6a6c; --accent:#0d6b6e; --accent-soft:#d8eeee; --accent-fg:#ffffff;
+  --todo:#738184; --doing:#1f6fb2; --doing-soft:#dde9f6; --done:#2e8a57; --done-soft:#dcf0e3;
+  --warn:#b0620a; --warn-soft:#fbecd9; --crit:#b3343a; --crit-soft:#f8dfe0;
+  --shadow:0 1px 2px rgba(16,40,42,.06),0 4px 14px rgba(16,40,42,.05);
+  --f-display:"Space Grotesk","IBM Plex Sans",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px; color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1719; --surface:#162123; --surface-2:#1a2729; --line:#2c3c3e; --line-2:#223133;
+  --fg:#e3ecec; --muted:#93a5a7; --accent:#4fb8b9; --accent-soft:#1d3a3c; --accent-fg:#06201f;
+  --todo:#8d9b9d; --doing:#6aa9e0; --doing-soft:#1b2f43; --done:#5cc48a; --done-soft:#173326;
+  --warn:#e5a14d; --warn-soft:#3a2a15; --crit:#ec7a7f; --crit-soft:#3d1f22;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1719; --surface:#162123; --surface-2:#1a2729; --line:#2c3c3e; --line-2:#223133;
+  --fg:#e3ecec; --muted:#93a5a7; --accent:#4fb8b9; --accent-soft:#1d3a3c; --accent-fg:#06201f;
+  --todo:#8d9b9d; --doing:#6aa9e0; --doing-soft:#1b2f43; --done:#5cc48a; --done-soft:#173326;
+  --warn:#e5a14d; --warn-soft:#3a2a15; --crit:#ec7a7f; --crit-soft:#3d1f22;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.wrap{max-width:1240px;margin-inline:auto;display:grid;gap:20px}
+h1,h2,h3{margin:0;text-wrap:balance}
+h1{font-family:var(--f-display);font-size:1.6rem;letter-spacing:-.01em;line-height:1.15}
+h2{font-size:1.02rem;font-weight:700}
+h3{font-size:.95rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:.84rem}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 12px;font-size:.88rem;line-height:1.3;white-space:nowrap}
+.btn:hover:not(:disabled){border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);font-weight:600}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--crit);border-color:var(--crit)}
+.btn.sm{padding:3px 9px;font-size:.8rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+input,select,textarea{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-width:0;width:100%}
+input[type=checkbox]{width:auto}
+textarea{resize:vertical}
+label.f{font-size:.8rem;color:var(--muted);display:grid;gap:4px;font-weight:500}
+.card-box{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r);padding:14px 16px}
+
+/* ---- top bar ---- */
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);
+  margin:0 calc(-1*max(16px,env(safe-area-inset-left)));padding:12px max(16px,env(safe-area-inset-left)) 0;border-bottom:1px solid var(--line-2)}
+.topbar .in{max-width:1240px;margin-inline:auto;display:grid;gap:10px}
+.head{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.brand{display:grid;gap:2px;min-width:0}
+.brand p{color:var(--muted);font-size:.84rem}
+.who{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.who select{width:auto;max-width:200px;padding:5px 8px;font-size:.88rem}
+.sync{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--todo)}
+.dot.ok{background:var(--done)} .dot.busy{background:var(--doing)} .dot.bad{background:var(--crit)} .dot.warn{background:var(--warn)}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs a{padding:8px 14px;border-bottom:2px solid transparent;color:var(--muted);text-decoration:none;font-weight:600;font-size:.92rem;white-space:nowrap}
+nav.tabs a[aria-current="page"]{color:var(--fg);border-bottom-color:var(--accent)}
+.notice{border:1px solid var(--warn);background:var(--warn-soft);border-radius:var(--r);padding:10px 14px;font-size:.9rem;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between}
+.notice.crit{border-color:var(--crit);background:var(--crit-soft)}
+.notice.info{border-color:var(--accent);background:var(--accent-soft)}
+main{padding-top:20px}
+section.view{display:grid;gap:20px}
+section.view[hidden]{display:none}
+
+/* ---- overview ---- */
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{display:grid;gap:2px;align-content:start}
+.stat .v{font-family:var(--f-mono);font-size:1.65rem;font-weight:500;line-height:1.2}
+.stat .k{font-size:.82rem;color:var(--muted)}
+.stat.crit .v{color:var(--crit)} .stat.warn .v{color:var(--warn)} .stat.doing .v{color:var(--doing)}
+.bar{height:6px;background:var(--line-2);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.sechead{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:space-between}
+.members{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mcard{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;text-align:start;min-width:0}
+.mcard:hover{border-color:var(--accent)}
+.ring{width:56px;height:56px;position:relative;flex:none}
+.ring svg{width:56px;height:56px;transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-mono);font-size:.78rem;font-weight:500}
+.mcard .name{font-weight:700;overflow-wrap:anywhere}
+.mcard .track{font-size:.8rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:.74rem;padding:1px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap;line-height:1.5}
+.chip.doing{color:var(--doing);border-color:var(--doing);background:var(--doing-soft)}
+.chip.done{color:var(--done);border-color:var(--done);background:var(--done-soft)}
+.chip.todo{color:var(--todo)}
+.chip.over{color:var(--crit);border-color:var(--crit);background:var(--crit-soft)}
+.chip.warn{color:var(--warn);border-color:var(--warn);background:var(--warn-soft)}
+.chip.code{font-family:var(--f-mono);border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.chip.hi{color:var(--crit);border-color:var(--crit)}
+.chip.you{border-color:var(--accent);color:var(--accent)}
+.rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:8px}
+.ph{display:grid;gap:4px;text-align:center;border:1px solid var(--line-2);border-radius:8px;padding:8px 4px;background:var(--surface);min-width:0}
+.ph:hover{border-color:var(--accent)}
+.ph.cur{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.ph .L{font-family:var(--f-mono);font-weight:500}
+.ph .p{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.ph .t{font-size:.7rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ph .bar{margin:0;height:5px}
+.two{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;align-items:start}
+.list{display:grid;margin:0;padding:0;list-style:none}
+.list li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line-2);font-size:.9rem}
+.list li:last-child{border-bottom:0}
+.list .t{flex:1 1 200px;min-width:0;overflow-wrap:anywhere}
+.act{font-size:.86rem}
+.act time{font-family:var(--f-mono);font-size:.75rem;color:var(--muted);white-space:nowrap}
+
+/* ---- board ---- */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.toolbar .grow{flex:1 1 220px}
+.toolbar label.f{min-width:140px;flex:0 1 180px}
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.lane{background:var(--surface-2);border:1px solid var(--line-2);border-radius:var(--r);padding:10px;display:grid;gap:10px;min-width:0}
+.lane>h2{display:flex;justify-content:space-between;align-items:center;padding:2px 4px}
+.lane>h2 .num{font-size:.85rem;color:var(--muted)}
+.lane[data-s="todo"]>h2{color:var(--todo)} .lane[data-s="doing"]>h2{color:var(--doing)} .lane[data-s="done"]>h2{color:var(--done)}
+.cards{display:grid;gap:10px}
+.task{background:var(--surface);border:1px solid var(--line-2);border-left:4px solid var(--todo);border-radius:9px;padding:10px 12px;display:grid;gap:7px;box-shadow:var(--shadow);min-width:0}
+.task[data-s="doing"]{border-left-color:var(--doing)}
+.task[data-s="done"]{border-left-color:var(--done)}
+.task.overdue{border-left-color:var(--crit)}
+.task .title{font-weight:600;overflow-wrap:anywhere}
+.task[data-s="done"] .title{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.task .meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.task .dw{font-size:.82rem;color:var(--muted);overflow-wrap:anywhere}
+.task .dw b{font-weight:600;color:var(--fg)}
+.task .notes{font-size:.82rem;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}
+.task .own{font-size:.8rem;color:var(--muted);overflow-wrap:anywhere}
+.task .acts{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.task .acts select{width:auto;padding:3px 8px;font-size:.82rem}
+.pp{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--warn-soft);border-radius:8px;padding:7px 8px}
+.pp input{width:auto;padding:3px 6px;font-size:.82rem}
+.empty{color:var(--muted);font-size:.88rem;text-align:center;padding:18px 8px;border:1px dashed var(--line);border-radius:9px}
+
+/* ---- plan ---- */
+.phase-sec{display:grid;gap:10px}
+.phase-head{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:space-between}
+.phase-head .l{display:flex;gap:10px;align-items:center;min-width:0}
+.phase-head .big{font-family:var(--f-display);font-size:1.25rem;width:36px;height:36px;border-radius:8px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);flex:none}
+.phase-head .r{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:.82rem;color:var(--muted)}
+.phase-head .r .bar{width:120px;margin:0}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line-2);vertical-align:top}
+th{font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;white-space:nowrap}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:var(--surface-2)}
+td.c{font-family:var(--f-mono);white-space:nowrap;color:var(--accent)}
+td.d{white-space:nowrap}
+.plan-tbl{table-layout:fixed;min-width:760px}
+#notices:empty{display:none}
+
+/* ---- settings ---- */
+.set-grid{display:grid;gap:16px}
+.rows{display:grid;gap:8px}
+.row-m{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,.9fr) auto;gap:8px;align-items:end}
+.row-p{display:grid;grid-template-columns:70px minmax(0,1.6fr) minmax(0,.8fr) minmax(0,.8fr) 140px 140px auto;gap:8px;align-items:end}
+.row-tools{display:flex;gap:4px;align-items:center;padding-bottom:2px}
+.g3{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) 180px;gap:10px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;font-size:.88rem}
+.kv dt{color:var(--muted)} .kv dd{margin:0;overflow-wrap:anywhere}
+.steps{margin:0;padding-left:20px;display:grid;gap:4px;font-size:.88rem}
+
+/* ---- dialog ---- */
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--fg);padding:0;width:min(640px,calc(100vw - 32px));max-height:calc(100dvh - 32px);box-shadow:0 20px 60px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(10,20,22,.45)}
+.dlg{display:grid;gap:12px;padding:18px}
+.dlg .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.owners{display:flex;flex-wrap:wrap;gap:6px 14px}
+.owners label{display:flex;align-items:center;gap:6px;font-size:.88rem}
+.toast{position:fixed;left:0;right:0;bottom:calc(16px + env(safe-area-inset-bottom));margin-inline:auto;width:max-content;max-width:calc(100% - 32px);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:.88rem;z-index:50}
+
+@media (max-width:960px){.two{grid-template-columns:1fr}.row-p{grid-template-columns:70px minmax(0,1fr) minmax(0,1fr);}.row-p .wide{grid-column:span 2}}
+@media (max-width:900px){.members{grid-template-columns:repeat(2,minmax(0,1fr))}.lanes{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.toolbar label.f,.toolbar .grow{flex:1 1 100%}.members{grid-template-columns:1fr}.dlg .g2,.g3{grid-template-columns:1fr}.row-m{grid-template-columns:1fr 1fr}.row-m .wide{grid-column:span 2}.row-p{grid-template-columns:1fr 1fr}.row-p .wide{grid-column:span 2}h1{font-size:1.35rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="in">
+    <div class="head">
+      <div class="brand"><h1 id="pTitle">SOAR Team Board</h1><p id="pSub"></p></div>
+      <div class="who">
+        <span class="sync" id="sync" title="Sync status"><span class="dot" id="syncDot"></span><span id="syncTxt">Loading…</span></span>
+        <label class="small muted" for="meSel">You are</label>
+        <select id="meSel" aria-label="You are"><option value="">Choose your name</option></select>
+        <button class="btn" id="ghBtn" type="button">Connect GitHub</button>
+        <button class="btn primary" id="newBtn" type="button">+ New task</button>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Views">
+      <a href="#overview" data-v="overview">Overview</a>
+      <a href="#board" data-v="board">Board</a>
+      <a href="#plan" data-v="plan">Plan</a>
+      <a href="#settings" data-v="settings">Settings</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="notices" style="display:grid;gap:10px"></div>
+
+  <!-- OVERVIEW -->
+  <section class="view" id="v-overview" aria-label="Overview">
+    <div class="summary">
+      <div class="card-box stat"><span class="v num" id="sPct">0%</span><span class="k">Project complete · <span id="sDone" class="num">0/0</span> tasks</span><div class="bar"><i id="sBar" style="width:0"></i></div></div>
+      <div class="card-box stat doing"><span class="v num" id="sDoing">0</span><span class="k">In progress now</span></div>
+      <div class="card-box stat warn"><span class="v num" id="sWeek">0</span><span class="k">Due in the next 7 days</span></div>
+      <div class="card-box stat crit"><span class="v num" id="sOver">0</span><span class="k">Overdue</span></div>
+    </div>
+
+    <div style="display:grid;gap:10px">
+      <div class="sechead"><h2>Team progress</h2><span class="small muted">Select a member to see their tasks on the board.</span></div>
+      <div class="members" id="members"></div>
+    </div>
+
+    <div class="card-box" style="display:grid;gap:10px">
+      <div class="sechead"><h2>Plan phases</h2><span class="small muted" id="weekNow"></span></div>
+      <div class="rail" id="rail"></div>
+    </div>
+
+    <div class="two">
+      <div class="card-box" style="display:grid;gap:6px">
+        <h2>Coming up: overdue and due within 7 days</h2>
+        <ul class="list" id="soon"></ul>
+      </div>
+      <div class="card-box" style="display:grid;gap:6px">
+        <div class="sechead"><h2>Recent activity</h2><a class="small" id="histLink" href="#" target="_blank" rel="noopener" hidden>Full history on GitHub</a></div>
+        <ul class="list" id="activity"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOARD -->
+  <section class="view" id="v-board" aria-label="Board" hidden>
+    <div class="toolbar">
+      <label class="f grow">Search<input id="q" type="search" placeholder="Search titles, notes, and completion checks"></label>
+      <label class="f">Member<select id="fMem"></select></label>
+      <label class="f">Phase<select id="fPh"></select></label>
+      <label class="f">Priority<select id="fPr"><option value="">All</option><option value="high">High</option><option value="normal">Normal</option><option value="low">Low</option></select></label>
+      <button class="btn ghost" id="clearF" type="button">Clear filters</button>
+    </div>
+    <div class="lanes">
+      <div class="lane" data-s="todo"><h2>To do <span class="num" data-c="todo">0</span></h2><div class="cards" data-l="todo"></div></div>
+      <div class="lane" data-s="doing"><h2>In progress <span class="num" data-c="doing">0</span></h2><div class="cards" data-l="doing"></div></div>
+      <div class="lane" data-s="done"><h2>Done <span class="num" data-c="done">0</span></h2><div class="cards" data-l="done"></div></div>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section class="view" id="v-plan" aria-label="Plan" hidden>
+    <div class="sechead"><h2>Implementation plan, phase by phase</h2><span class="small muted">Select a row to edit the task. Phases are edited in Settings.</span></div>
+    <div id="planBody" style="display:grid;gap:16px"></div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="view" id="v-settings" aria-label="Settings" hidden>
+    <div class="card-box set-grid">
+      <h2>Project</h2>
+      <div class="g3">
+        <label class="f">Board title<input id="sTitle" type="text" maxlength="80"></label>
+        <label class="f">Subtitle<input id="sSub" type="text" maxlength="160"></label>
+        <label class="f">Week 1 starts on<input id="sWeek1" type="date"></label>
+      </div>
+      <div class="btnrow"><button class="btn primary" id="saveProj" type="button">Save project</button></div>
+    </div>
+
+    <div class="card-box set-grid">
+      <div class="sechead"><h2>Team members</h2><span class="small muted">Add a GitHub username to recognize a member automatically when they connect.</span></div>
+      <div class="rows" id="memRows"></div>
+      <div class="btnrow"><button class="btn" id="addMem" type="button">+ Add member</button><button class="btn primary" id="saveMem" type="button">Save members</button></div>
+    </div>
+
+    <div class="card-box set-grid">
+      <div class="sechead"><h2>Plan phases</h2><span class="small muted">Changing a phase code keeps its tasks attached. A phase can be removed only when it has no tasks.</span></div>
+      <div class="rows" id="phRows"></div>
+      <div class="btnrow"><button class="btn" id="addPh" type="button">+ Add phase</button><button class="btn primary" id="savePh" type="button">Save phases</button></div>
+    </div>
+
+    <div class="card-box set-grid">
+      <h2>Data and connection</h2>
+      <dl class="kv" id="connInfo"></dl>
+      <div class="btnrow">
+        <button class="btn" id="exportBtn" type="button">Export JSON backup</button>
+        <label class="btn" for="importFile" style="display:inline-flex">Import JSON…</label>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+        <span id="importConfirm"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- task editor -->
+<dialog id="dlgTask" aria-labelledby="dtTitle">
+  <form class="dlg" method="dialog" id="taskForm">
+    <h2 id="dtTitle">New task</h2>
+    <label class="f">Title<input id="tTitle" type="text" maxlength="220" required></label>
+    <div class="g2">
+      <label class="f">Phase<select id="tPhase"></select></label>
+      <label class="f">Code<input id="tCode" type="text" maxlength="12" placeholder="Auto"></label>
+      <label class="f">Due date<input id="tDue" type="date"></label>
+      <label class="f">Priority<select id="tPri"><option value="high">High</option><option value="normal">Normal</option><option value="low">Low</option></select></label>
+      <label class="f">Status<select id="tStatus"><option value="todo">To do</option><option value="doing">In progress</option><option value="done">Done</option></select></label>
+    </div>
+    <div style="display:grid;gap:6px"><span class="small muted" style="font-weight:500">Owners</span><div class="owners" id="tOwners"></div></div>
+    <label class="f">Done when (completion check)<input id="tDW" type="text" maxlength="300"></label>
+    <label class="f">Notes<textarea id="tNotes" rows="3" maxlength="2000"></textarea></label>
+    <div class="btnrow"><button class="btn primary" id="tSave" value="save" type="submit">Save task</button><button class="btn ghost" value="cancel" type="button" id="tCancel">Cancel</button><span class="small muted" id="tMsg"></span></div>
+  </form>
+</dialog>
+
+<!-- GitHub connect -->
+<dialog id="dlgGh" aria-labelledby="dgTitle">
+  <div class="dlg">
+    <h2 id="dgTitle">Connect GitHub to edit</h2>
+    <p class="small muted">Anyone can view this board. To add or change tasks, connect your GitHub account once on this device. Every change is saved as a commit in the team repository, so the board and its full history live on GitHub.</p>
+    <ol class="steps">
+      <li>Accept the collaborator invitation to <b id="dgRepo">the repository</b> (sent by its owner).</li>
+      <li>Open <a href="https://github.com/settings/tokens/new?scopes=public_repo&description=SOAR%20Team%20Board" target="_blank" rel="noopener">GitHub → New personal access token (classic)</a>. The <code>public_repo</code> scope is pre-selected; set the expiration to the end of the project.</li>
+      <li>Select <b>Generate token</b>, copy it, and paste it below.</li>
+    </ol>
+    <label class="f">Personal access token<input id="ghTok" type="password" autocomplete="off" spellcheck="false" placeholder="ghp_…"></label>
+    <p class="small muted">The token is stored only in this browser and is sent only to api.github.com.</p>
+    <div class="btnrow"><button class="btn primary" id="ghSave" type="button">Connect</button><button class="btn ghost" id="ghClose" type="button">Close</button><button class="btn danger" id="ghOut" type="button" hidden>Disconnect</button><span class="small" id="ghMsg"></span></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------------- config & helpers ---------------- */
+const C=Object.assign({owner:"",repo:"",dataBranch:"board-data",dataPath:"data/board.json"},window.BOARD_CONFIG||{});
+(function detect(){
+  if(C.owner&&C.repo)return;
+  const h=location.hostname;
+  if(/\.github\.io$/i.test(h)){C.owner=h.split(".")[0];const seg=location.pathname.split("/").filter(Boolean)[0];C.repo=seg||h}
+  else{const q=new URLSearchParams(location.search).get("repo")||ls("soar.repo");if(q&&/^[\w.-]+\/[\w.-]+$/.test(q)){[C.owner,C.repo]=q.split("/");ls("soar.repo",q)}}
+})();
+const API="https://api.github.com";
+const ST={todo:"To do",doing:"In progress",done:"Done"};
+const PR={high:"High",normal:"Normal",low:"Low"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
+const clone=o=>JSON.parse(JSON.stringify(o));
+const uid=p=>p+Math.random().toString(36).slice(2,8);
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const today=()=>iso(new Date());
+function addDays(s,n){const d=s?new Date(s+"T12:00:00"):new Date();d.setDate(d.getDate()+n);return iso(d)}
+function dDiff(a,b){return Math.round((new Date(b+"T12:00:00")-new Date(a+"T12:00:00"))/864e5)}
+function fmtD(s){if(!s)return"No date";return new Date(s+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"})}
+function fmtWhen(s){if(!s)return"";const d=new Date(s),n=Date.now(),m=Math.round((n-d)/6e4);
+  if(m<1)return"just now";if(m<60)return m+" min ago";const h=Math.round(m/60);if(h<24)return h+" h ago";const dd=Math.round(h/24);if(dd<8)return dd+" d ago";
+  return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}
+function b64dec(s){const bin=atob(s.replace(/\s/g,""));const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new TextDecoder().decode(u)}
+function b64enc(str){const u=new TextEncoder().encode(str);let bin="";for(let i=0;i<u.length;i+=0x8000)bin+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(bin)}
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,3000)}
+
+/* ---------------- state ---------------- */
+let server=null;      // last confirmed board from GitHub (or seed)
+let board=null;       // what is displayed
+let sha=null, etag=null, source="none", branchMissing=false;
+let token=ls("soar.token")||"", login=ls("soar.login")||"", canPush=null;
+let saving=0, view="overview", lastCommit=0;
+let filt={q:"",mem:"",ph:"",pr:""}, ppOpen=null, delAsk=null, editing=null;
+let pendingImport=null;
+const notes={};
+
+function setNotice(key,html,kind){notes[key]=html?{html,kind}:null;
+  $("#notices").innerHTML=Object.values(notes).filter(Boolean).map(n=>`<div class="notice ${n.kind||""}">${n.html}</div>`).join("")}
+function sync(state,txt){const d=$("#syncDot");d.className="dot "+(state||"");$("#syncTxt").textContent=txt}
+
+/* ---------------- GitHub API ---------------- */
+async function gh(path,opt={}){
+  const h=Object.assign({Accept:"application/vnd.github+json"},opt.headers||{});
+  if(token)h.Authorization="Bearer "+token;
+  if(opt.body)h["Content-Type"]="application/json";
+  return fetch(API+path,{method:opt.method||"GET",headers:h,body:opt.body,cache:"no-store"});
+}
+const repoPath=()=>`/repos/${encodeURIComponent(C.owner)}/${encodeURIComponent(C.repo)}`;
+const contentsPath=()=>`${repoPath()}/contents/${C.dataPath.split("/").map(encodeURIComponent).join("/")}`;
+
+function normalize(b){
+  b=b&&typeof b==="object"?b:{};
+  b.schema=b.schema||1;
+  b.project=Object.assign({title:"Team Board",subtitle:"",week1:""},b.project||{});
+  b.members=Array.isArray(b.members)?b.members:[];
+  b.phases=Array.isArray(b.phases)?b.phases:[];
+  b.tasks=Array.isArray(b.tasks)?b.tasks:[];
+  b.activity=Array.isArray(b.activity)?b.activity:[];
+  b.meta=b.meta||{};
+  b.tasks.forEach(t=>{t.owners=Array.isArray(t.owners)?t.owners:[];t.status=ST[t.status]?t.status:"todo";t.priority=PR[t.priority]?t.priority:"normal";t.postponed=t.postponed||0});
+  return b;
+}
+
+async function loadSeed(){
+  try{const r=await fetch(C.dataPath+"?t="+Date.now(),{cache:"no-store"});if(r.ok)return normalize(await r.json())}catch(e){}
+  if(C.owner){try{const r=await gh(contentsPath());if(r.ok){const j=await r.json();return normalize(JSON.parse(b64dec(j.content)))}}catch(e){}}
+  return null;
+}
+
+/* fetch the shared board. returns true when the board changed */
+async function pull(force){
+  if(!C.owner){
+    if(!server){const s=await loadSeed();server=s;board=s?clone(s):normalize({});source="seed";render()}
+    setNotice("cfg",`This page does not know which GitHub repository holds the board. Open it from GitHub Pages, or add <code>?repo=OWNER/REPO</code> to the address.`,"crit");
+    sync("bad","Not connected to a repository");return false;
+  }
+  if(!force&&Date.now()-lastCommit<8000)return false; // GitHub may briefly serve the previous version right after a commit
+  let r;
+  try{r=await gh(`${contentsPath()}?ref=${encodeURIComponent(C.dataBranch)}`,{headers:(!force&&etag)?{"If-None-Match":etag}:{}})}
+  catch(e){sync("bad","Offline: retrying");return false}
+  if(r.status===304){sync("ok","Up to date · "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}));return false}
+  if(r.status===401){setNotice("tok",`Your saved GitHub token is no longer valid. <button class="btn sm" data-a="ghopen">Reconnect</button>`,"crit");token="";ls("soar.token",null);return pull(force)}
+  if(r.status===403||r.status===429){const rem=r.headers.get("x-ratelimit-remaining");
+    sync("warn",rem==="0"?"GitHub rate limit reached":"GitHub refused the request");
+    if(rem==="0"&&!token)setNotice("rate",`GitHub limits viewers without a token to 60 requests per hour. Connect GitHub to refresh more often.`,"");
+    return false}
+  if(r.status===404){
+    // data branch not created yet (or private repo without access): show the seed
+    branchMissing=true;
+    if(!server||source!=="seed"){const s=await loadSeed();if(s){server=s;board=clone(s);source="seed";render()}}
+    if(!server){setNotice("cfg",`Could not find <code>${esc(C.dataPath)}</code> in <b>${esc(C.owner)}/${esc(C.repo)}</b>. If the repository is private, connect GitHub with an account that can read it.`,"crit");sync("bad","Board data not found");return false}
+    setNotice("seed",token?`This is the initial plan from the handbook. The shared copy is created on GitHub with the first change.`:`Showing the initial plan from the handbook. Connect GitHub to start editing; the shared copy is created with the first change.`,"info");
+    sync("warn","Initial plan (not yet shared)");return true;
+  }
+  if(!r.ok){sync("bad","Sync error "+r.status);return false}
+  const j=await r.json();
+  let data;try{data=normalize(JSON.parse(b64dec(j.content)))}catch(e){setNotice("bad",`The board file on GitHub is not valid JSON. Fix or restore it from the commit history.`,"crit");return false}
+  branchMissing=false;setNotice("seed",null);setNotice("rate",null);
+  sha=j.sha;etag=r.headers.get("ETag");source="github";
+  const changed=!server||JSON.stringify(server)!==JSON.stringify(data);
+  server=data;if(!saving){board=clone(data);if(changed)render()}
+  sync("ok","Up to date · "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}));
+  return changed;
+}
+
+async function ensureBranch(){
+  if(!branchMissing)return true;
+  const ri=await gh(repoPath());if(!ri.ok)return false;
+  const def=(await ri.json()).default_branch||"main";
+  const rr=await gh(`${repoPath()}/git/ref/heads/${encodeURIComponent(def)}`);if(!rr.ok)return false;
+  const base=(await rr.json()).object.sha;
+  const cr=await gh(`${repoPath()}/git/refs`,{method:"POST",body:JSON.stringify({ref:"refs/heads/"+C.dataBranch,sha:base})});
+  if(!(cr.ok||cr.status===422))return false;
+  branchMissing=false;return true;
+}
+async function fetchLatestForWrite(){
+  const r=await gh(`${contentsPath()}?ref=${encodeURIComponent(C.dataBranch)}`);
+  if(r.status===404){sha=null;if(!server){server=await loadSeed()||normalize({})}return true}
+  if(!r.ok)return false;
+  const j=await r.json();sha=j.sha;etag=r.headers.get("ETag");server=normalize(JSON.parse(b64dec(j.content)));source="github";return true;
+}
+
+/* apply a change: optimistic locally, then commit to GitHub with retry on conflicts */
+async function commit(mutate,message,okMsg){
+  if(!C.owner){toast("No repository configured.");return false}
+  if(!token){openGh();toast("Connect GitHub to save changes.");return false}
+  if(canPush===false){toast("Your GitHub account cannot write to this repository.");return false}
+  if(!server){toast("The board is still loading.");return false}
+  // optimistic
+  const opt=clone(board);if(mutate(opt)===false){toast("That item no longer exists.");return false}
+  board=opt;render();
+  saving++;sync("busy","Saving…");
+  let ok=false,err="";
+  try{
+    for(let attempt=0;attempt<4&&!ok;attempt++){
+      if(attempt>0||source!=="github"){
+        if(!(await ensureBranch())){err="Could not create the data branch. Check that you can write to the repository.";break}
+        if(!(await fetchLatestForWrite())){err="Could not read the latest board.";break}
+      }
+      const next=clone(server);
+      if(mutate(next)===false){err="Someone else changed or removed this item first.";break}
+      const by=meName();
+      next.meta={updatedAt:new Date().toISOString(),updatedBy:by};
+      next.activity=[{at:next.meta.updatedAt,by,text:message}].concat(next.activity||[]).slice(0,80);
+      const body={message:`board: ${message} (${by})`.slice(0,250),content:b64enc(JSON.stringify(next,null,1)),branch:C.dataBranch};
+      if(sha)body.sha=sha;
+      const r=await gh(contentsPath(),{method:"PUT",body:JSON.stringify(body)});
+      if(r.ok){const j=await r.json();sha=j.content&&j.content.sha;etag=null;server=next;source="github";branchMissing=false;setNotice("seed",null);lastCommit=Date.now();ok=true;break}
+      if(r.status===409||r.status===422){await new Promise(z=>setTimeout(z,300+Math.random()*700));continue}
+      if(r.status===401){err="Your GitHub token is invalid or expired. Reconnect GitHub.";token="";ls("soar.token",null);updGhBtn();break}
+      if(r.status===403||r.status===404){err="Your GitHub account cannot write to this repository. Ask the owner to add you as a collaborator.";canPush=false;break}
+      err="GitHub returned an error ("+r.status+").";break;
+    }
+  }catch(e){err="Network error. Check your connection."}
+  saving--;
+  board=clone(server);render();
+  if(ok){sync("ok","Saved · "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}));if(okMsg)toast(okMsg)}
+  else{sync("bad","Not saved");toast(err||"Could not save. Try again.")}
+  return ok;
+}
+
+/* ---------------- identity ---------------- */
+function me(){return ls("soar.me")||""}
+function member(id){return board&&board.members.find(m=>m.id===id)}
+function mName(id){const m=member(id);return m?m.name:"(removed member)"}
+function ownersText(o){if(!o.length)return"Unassigned";if(board.members.length>2&&board.members.every(m=>o.includes(m.id)))return"All members";return o.map(mName).join(", ")}
+function meName(){const m=member(me());return m?m.name:(login?"@"+login:"Unknown member")}
+function autoMe(){if(me()||!login||!board)return;const m=board.members.find(x=>x.github&&x.github.toLowerCase()===login.toLowerCase());if(m)ls("soar.me",m.id)}
+function phase(id){return board&&board.phases.find(p=>p.id===id)}
+function phCode(id){const p=phase(id);return p?p.code:"–"}
+
+/* ---------------- render ---------------- */
+const isOver=t=>t.status!=="done"&&t.due&&t.due<today();
+function ring(p){const r=23,c=2*Math.PI*r;return `<div class="ring" aria-hidden="true"><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="${r}" fill="none" stroke="var(--line-2)" stroke-width="6"/><circle cx="28" cy="28" r="${r}" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${(c*(1-p/100)).toFixed(2)}"/></svg><b>${p}%</b></div>`}
+function pct(a,b){return b?Math.round(a*100/b):0}
+
+function render(){
+  if(!board)return;
+  autoMe();
+  document.title=board.project.title||"Team Board";
+  $("#pTitle").textContent=board.project.title||"Team Board";
+  $("#pSub").textContent=board.project.subtitle||"";
+  fillSelects();
+  renderOverview();renderBoard();renderPlan();
+  if(view==="settings"&&!settingsDirty)renderSettings();
+  renderConn();
+}
+function fillSelects(){
+  const cur=me();
+  $("#meSel").innerHTML='<option value="">Choose your name</option>'+board.members.map(m=>`<option value="${esc(m.id)}">${esc(m.name)}</option>`).join("");
+  $("#meSel").value=member(cur)?cur:"";
+  const fm=$("#fMem");fm.innerHTML='<option value="">Everyone</option>'+(cur&&member(cur)?'<option value="__me">My tasks</option>':"")+board.members.map(m=>`<option value="${esc(m.id)}">${esc(m.name)}</option>`).join("")+'<option value="__none">Unassigned</option>';
+  fm.value=filt.mem;if(fm.value!==filt.mem)filt.mem="",fm.value="";
+  const fp=$("#fPh");fp.innerHTML='<option value="">All phases</option>'+board.phases.map(p=>`<option value="${esc(p.id)}">${esc(p.code)} · ${esc(p.name)}</option>`).join("");
+  fp.value=filt.ph;if(fp.value!==filt.ph)filt.ph="",fp.value="";
+}
+function currentPhase(){
+  const td=today();
+  const open=board.phases.filter(p=>board.tasks.some(t=>t.phase===p.id&&t.status!=="done"));
+  const dated=open.find(p=>p.start&&p.start<=td&&(!p.end||p.end>=td));
+  return dated||open[0]||null;
+}
+function renderOverview(){
+  const T=board.tasks,td=today(),wk=addDays(td,7);
+  const done=T.filter(t=>t.status==="done").length,p=pct(done,T.length);
+  $("#sPct").textContent=p+"%";$("#sBar").style.width=p+"%";$("#sDone").textContent=done+"/"+T.length;
+  $("#sDoing").textContent=T.filter(t=>t.status==="doing").length;
+  $("#sWeek").textContent=T.filter(t=>t.status!=="done"&&t.due&&t.due>=td&&t.due<=wk).length;
+  $("#sOver").textContent=T.filter(isOver).length;
+  const w1=board.project.week1;
+  $("#weekNow").textContent=w1?(dDiff(w1,td)>=0?`Today is in week ${Math.floor(dDiff(w1,td)/7)+1}`:`Week 1 starts ${fmtD(w1)}`):"";
+
+  $("#members").innerHTML=board.members.length?board.members.map(m=>{
+    const mine=T.filter(t=>t.owners.includes(m.id)),d=mine.filter(t=>t.status==="done").length,g=mine.filter(t=>t.status==="doing").length,o=mine.filter(isOver).length;
+    return `<button type="button" class="mcard" data-a="mem" data-id="${esc(m.id)}">${ring(pct(d,mine.length))}<div style="min-width:0"><div class="name">${esc(m.name)} ${m.id===me()?'<span class="chip you">you</span>':""}</div><div class="track">${esc(m.track||"")}</div><div class="chips"><span class="chip done"><span class="num">${d}/${mine.length}</span> done</span>${g?`<span class="chip doing"><span class="num">${g}</span> in progress</span>`:""}${o?`<span class="chip over"><span class="num">${o}</span> overdue</span>`:""}</div></div></button>`}).join("")
+    :`<div class="empty">No members yet. Add the team in Settings.</div>`;
+
+  const cur=currentPhase();
+  $("#rail").innerHTML=board.phases.map(ph=>{const ts=T.filter(t=>t.phase===ph.id),d=ts.filter(t=>t.status==="done").length;
+    return `<button type="button" class="ph${cur&&cur.id===ph.id?" cur":""}" data-a="phgo" data-id="${esc(ph.id)}" title="${esc(ph.name)}"><span class="L">${esc(ph.code)}</span><span class="bar"><i style="width:${pct(d,ts.length)}%"></i></span><span class="p">${d}/${ts.length}</span><span class="t">${esc(ph.timing||"")}</span></button>`}).join("")||`<div class="empty">No phases. Add them in Settings.</div>`;
+
+  const soon=T.filter(t=>t.status!=="done"&&t.due&&t.due<=wk).sort((a,b)=>a.due<b.due?-1:a.due>b.due?1:0);
+  $("#soon").innerHTML=soon.length?soon.slice(0,14).map(t=>{const dd=dDiff(td,t.due);
+    const tag=dd<0?`<span class="chip over">${-dd} d overdue</span>`:dd===0?`<span class="chip warn">today</span>`:`<span class="chip warn">in ${dd} d</span>`;
+    return `<li><span class="chip code">${esc(t.code||phCode(t.phase))}</span><span class="t">${esc(t.title)}</span><span class="small muted">${esc(ownersText(t.owners))}</span>${tag}</li>`}).join("")+(soon.length>14?`<li class="muted small">and ${soon.length-14} more on the board</li>`:"")
+    :`<li class="muted">Nothing overdue or due in the next 7 days.</li>`;
+
+  const A=board.activity||[];
+  $("#activity").innerHTML=A.length?A.slice(0,10).map(a=>`<li class="act"><span class="t"><b>${esc(a.by)}</b> ${esc(a.text)}</span><time datetime="${esc(a.at)}">${esc(fmtWhen(a.at))}</time></li>`).join(""):`<li class="muted">No activity yet.</li>`;
+  const hl=$("#histLink");if(C.owner){hl.hidden=false;hl.href=`https://github.com/${C.owner}/${C.repo}/commits/${C.dataBranch}/${C.dataPath}`}
+}
+function visible(t){
+  const m=filt.mem==="__me"?me():filt.mem;
+  if(m==="__none"){if(t.owners.length)return false}else if(m&&!t.owners.includes(m))return false;
+  if(filt.ph&&t.phase!==filt.ph)return false;
+  if(filt.pr&&t.priority!==filt.pr)return false;
+  if(filt.q){const q=filt.q.toLowerCase();if(!`${t.code} ${t.title} ${t.notes} ${t.doneWhen}`.toLowerCase().includes(q))return false}
+  return true;
+}
+function phaseIdx(id){const i=board.phases.findIndex(p=>p.id===id);return i<0?999:i}
+function sorter(s){const pw={high:0,normal:1,low:2};return(a,b)=>{
+  if(s==="done")return (b.doneAt||"").localeCompare(a.doneAt||"");
+  const ad=a.due||"9999",bd=b.due||"9999";if(ad!==bd)return ad<bd?-1:1;
+  if(pw[a.priority]!==pw[b.priority])return pw[a.priority]-pw[b.priority];
+  return phaseIdx(a.phase)-phaseIdx(b.phase)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true})}}
+function renderBoard(){
+  const has=board.tasks.length;
+  for(const s of ["todo","doing","done"]){
+    const L=board.tasks.filter(t=>t.status===s&&visible(t)).sort(sorter(s));
+    document.querySelector(`[data-c="${s}"]`).textContent=L.length;
+    document.querySelector(`[data-l="${s}"]`).innerHTML=L.length?L.map(card).join(""):`<div class="empty">${has?"No tasks match the filters.":"No tasks yet. Use “+ New task”."}</div>`;
+  }
+}
+function card(t){
+  const td=today();let due=`<span class="chip">${fmtD(t.due)}</span>`;
+  if(t.due&&t.status!=="done"){const dd=dDiff(td,t.due);due=dd<0?`<span class="chip over">${fmtD(t.due)} · overdue</span>`:dd<=3?`<span class="chip warn">${fmtD(t.due)}</span>`:due}
+  const ph=phase(t.phase);
+  const pp=ppOpen===t.id?`<div class="pp"><span class="small">Postpone:</span><button class="btn sm" data-a="pp" data-d="1" data-id="${esc(t.id)}" type="button">+1 day</button><button class="btn sm" data-a="pp" data-d="3" data-id="${esc(t.id)}" type="button">+3 days</button><button class="btn sm" data-a="pp" data-d="7" data-id="${esc(t.id)}" type="button">+1 week</button><input type="date" id="ppd-${esc(t.id)}" value="${esc(t.due||"")}" aria-label="New due date"><button class="btn sm primary" data-a="ppset" data-id="${esc(t.id)}" type="button">Set</button></div>`:"";
+  const del=delAsk===t.id?`<button class="btn sm danger" data-a="delyes" data-id="${esc(t.id)}" type="button">Confirm delete</button><button class="btn sm ghost" data-a="delno" type="button">Keep</button>`:`<button class="btn sm ghost" data-a="del" data-id="${esc(t.id)}" type="button">Delete</button>`;
+  return `<article class="task${isOver(t)?" overdue":""}" data-s="${t.status}">
+  <div class="meta"><span class="chip code" title="${esc(ph?ph.name:"")}">${esc(t.code||(ph?ph.code:"–"))}</span>${due}${t.priority==="high"?'<span class="chip hi">High priority</span>':t.priority==="low"?'<span class="chip">Low</span>':""}${t.postponed?`<span class="chip warn">Postponed ×${t.postponed}</span>`:""}</div>
+  <div class="title">${esc(t.title)}</div>
+  ${t.doneWhen?`<div class="dw"><b>Done when:</b> ${esc(t.doneWhen)}</div>`:""}
+  ${t.notes?`<div class="notes">${esc(t.notes)}</div>`:""}
+  <div class="own">Owner${t.owners.length===1?"":"s"}: ${esc(ownersText(t.owners))}${t.updatedBy?` · last change by ${esc(t.updatedBy)}`:""}</div>
+  <div class="acts"><select data-a="st" data-id="${esc(t.id)}" aria-label="Status">${Object.keys(ST).map(k=>`<option value="${k}"${k===t.status?" selected":""}>${ST[k]}</option>`).join("")}</select>
+  ${t.status!=="done"?`<button class="btn sm" data-a="ppopen" data-id="${esc(t.id)}" type="button">Postpone</button>`:""}
+  <button class="btn sm" data-a="edit" data-id="${esc(t.id)}" type="button">Edit</button>${del}</div>${pp}</article>`;
+}
+function renderPlan(){
+  const td=today();
+  const groups=board.phases.map(p=>({p,ts:board.tasks.filter(t=>t.phase===p.id)}));
+  const orphan=board.tasks.filter(t=>!phase(t.phase));
+  if(orphan.length)groups.push({p:{id:"",code:"–",name:"No phase",timing:""},ts:orphan});
+  $("#planBody").innerHTML=groups.map(({p,ts})=>{
+    ts=ts.slice().sort((a,b)=>String(a.code).localeCompare(String(b.code),undefined,{numeric:true}));
+    const d=ts.filter(t=>t.status==="done").length;
+    const range=p.start||p.end?`${fmtD(p.start)} – ${fmtD(p.end)}`:"";
+    return `<div class="card-box phase-sec" id="ph-${esc(p.id)}"><div class="phase-head"><div class="l"><span class="big">${esc(p.code)}</span><div style="min-width:0"><h3>${esc(p.name)}</h3><div class="small muted">${[p.timing,range,p.proposal&&p.proposal!=="—"?"Proposal "+p.proposal:""].filter(Boolean).map(esc).join(" · ")}</div></div></div><div class="r"><span class="num">${d}/${ts.length} done</span><span class="bar"><i style="width:${pct(d,ts.length)}%"></i></span><button class="btn sm" data-a="newin" data-id="${esc(p.id)}" type="button">+ Task</button></div></div>
+    ${ts.length?`<div class="tbl-wrap"><table class="plan-tbl"><colgroup><col style="width:52px"><col style="width:34%"><col style="width:24%"><col><col style="width:78px"><col style="width:112px"></colgroup><thead><tr><th>#</th><th>Step</th><th>Done when</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead><tbody>${ts.map(t=>`<tr data-a="edit" data-id="${esc(t.id)}" tabindex="0"><td class="c">${esc(t.code||"")}</td><td>${esc(t.title)}</td><td class="muted">${esc(t.doneWhen||"")}</td><td>${esc(t.owners.length?ownersText(t.owners):"—")}</td><td class="d">${isOver(t)?`<span class="chip over">${fmtD(t.due)}</span>`:esc(t.due?fmtD(t.due):"—")}</td><td><span class="chip ${t.status}">${ST[t.status]}</span></td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">No tasks in this phase yet.</div>`}</div>`}).join("")||`<div class="empty">No phases yet. Add them in Settings.</div>`;
+}
+
+/* ---------------- settings ---------------- */
+let settingsDirty=false, draftMem=null, draftPh=null, delMem=null;
+function renderSettings(){
+  $("#sTitle").value=board.project.title||"";$("#sSub").value=board.project.subtitle||"";$("#sWeek1").value=board.project.week1||"";
+  draftMem=clone(board.members);draftPh=clone(board.phases);delMem=null;drawMem();drawPh();settingsDirty=false;
+}
+function drawMem(){
+  $("#memRows").innerHTML=draftMem.map((m,i)=>{const n=board.tasks.filter(t=>t.owners.includes(m.id)).length;
+    return `<div class="row-m"><label class="f">Name<input data-mi="${i}" data-k="name" value="${esc(m.name)}" maxlength="60"></label><label class="f wide">Track / role<input data-mi="${i}" data-k="track" value="${esc(m.track||"")}" maxlength="80"></label><label class="f">GitHub username<input data-mi="${i}" data-k="github" value="${esc(m.github||"")}" maxlength="40" placeholder="optional"></label><div class="row-tools">${delMem===i?`<button class="btn sm danger" data-a="mdelyes" data-i="${i}" type="button">Remove${n?` (unassign ${n})`:""}</button><button class="btn sm ghost" data-a="mdelno" type="button">Keep</button>`:`<button class="btn sm ghost" data-a="mdel" data-i="${i}" type="button" aria-label="Remove member">Remove</button>`}</div></div>`}).join("")||`<div class="empty">No members.</div>`;
+}
+function drawPh(){
+  $("#phRows").innerHTML=draftPh.map((p,i)=>{const n=board.tasks.filter(t=>t.phase===p.id).length;
+    return `<div class="row-p"><label class="f">Code<input data-pi="${i}" data-k="code" value="${esc(p.code)}" maxlength="6"></label><label class="f wide">Name<input data-pi="${i}" data-k="name" value="${esc(p.name)}" maxlength="100"></label><label class="f">Timing<input data-pi="${i}" data-k="timing" value="${esc(p.timing||"")}" maxlength="30" placeholder="e.g. Weeks 3–4"></label><label class="f">Proposal phase<input data-pi="${i}" data-k="proposal" value="${esc(p.proposal||"")}" maxlength="30"></label><label class="f">Start<input type="date" data-pi="${i}" data-k="start" value="${esc(p.start||"")}"></label><label class="f">End<input type="date" data-pi="${i}" data-k="end" value="${esc(p.end||"")}"></label><div class="row-tools"><button class="btn sm ghost" data-a="pup" data-i="${i}" type="button" aria-label="Move up"${i?"":" disabled"}>↑</button><button class="btn sm ghost" data-a="pdn" data-i="${i}" type="button" aria-label="Move down"${i<draftPh.length-1?"":" disabled"}>↓</button><button class="btn sm ghost" data-a="pdel" data-i="${i}" type="button" title="${n?"Move or delete its "+n+" tasks first":"Remove phase"}"${n?" disabled":""}>Remove</button></div></div>`}).join("")||`<div class="empty">No phases.</div>`;
+}
+function renderConn(){
+  const rows=[["Repository",C.owner?`<a href="https://github.com/${esc(C.owner)}/${esc(C.repo)}" target="_blank" rel="noopener">${esc(C.owner)}/${esc(C.repo)}</a>`:"Not set"],
+    ["Data file",C.owner?`<code>${esc(C.dataPath)}</code> on branch <code>${esc(C.dataBranch)}</code>${branchMissing?" (created with the first change)":""}`:"—"],
+    ["Your GitHub",token?(login?"@"+esc(login):"connected")+(canPush===false?" · <b style=\"color:var(--crit)\">no write access</b>":""):"Not connected (view only)"],
+    ["Last change",board&&board.meta&&board.meta.updatedAt?esc(fmtWhen(board.meta.updatedAt))+" by "+esc(board.meta.updatedBy||"?"):"—"],
+    ["Contents",board?`${board.members.length} members · ${board.phases.length} phases · ${board.tasks.length} tasks`:"—"]];
+  $("#connInfo").innerHTML=rows.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
+}
+
+/* ---------------- task editor ---------------- */
+function nextCode(b,phId){const p=b.phases.find(x=>x.id===phId);const pre=p?p.code:"T";let n=0;
+  b.tasks.forEach(t=>{const m=String(t.code||"").match(new RegExp("^"+pre.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"(\\d+)$"));if(m)n=Math.max(n,+m[1])});return pre+(n+1)}
+function openEditor(t,phId){
+  editing=t?t.id:null;$("#dtTitle").textContent=t?`Edit task ${t.code||""}`:"New task";
+  $("#tPhase").innerHTML=board.phases.map(p=>`<option value="${esc(p.id)}">${esc(p.code)} · ${esc(p.name)}</option>`).join("")+'<option value="">No phase</option>';
+  $("#tOwners").innerHTML=board.members.map(m=>`<label><input type="checkbox" value="${esc(m.id)}"> ${esc(m.name)}</label>`).join("")||'<span class="small muted">Add members in Settings first.</span>';
+  const ph=t?t.phase:(phId||filt.ph||(currentPhase()||{}).id||"");
+  $("#tPhase").value=ph;$("#tTitle").value=t?t.title:"";$("#tCode").value=t?(t.code||""):"";
+  $("#tDue").value=t?(t.due||""):((phase(ph)||{}).end||"");$("#tDue").dataset.auto=t?"0":"1";
+  $("#tPri").value=t?t.priority:"normal";$("#tStatus").value=t?t.status:"todo";
+  $("#tDW").value=t?(t.doneWhen||""):"";$("#tNotes").value=t?(t.notes||""):"";
+  $("#tOwners").querySelectorAll("input").forEach(c=>c.checked=t?t.owners.includes(c.value):c.value===me());
+  $("#tMsg").textContent="";$("#dlgTask").showModal();$("#tTitle").focus();
+}
+async function saveEditor(){
+  const title=$("#tTitle").value.trim();if(!title){$("#tMsg").textContent="Give the task a title.";$("#tTitle").focus();return}
+  const v={title,phase:$("#tPhase").value,code:$("#tCode").value.trim(),due:$("#tDue").value||"",priority:$("#tPri").value,status:$("#tStatus").value,
+    owners:[...$("#tOwners").querySelectorAll("input:checked")].map(c=>c.value),doneWhen:$("#tDW").value.trim(),notes:$("#tNotes").value.trim()};
+  const id=editing,now=new Date().toISOString(),by=meName();
+  $("#dlgTask").close();
+  if(id){
+    await commit(b=>{const t=b.tasks.find(x=>x.id===id);if(!t)return false;
+      if(v.status==="done"&&t.status!=="done")v.doneAt=now;if(v.status!=="done")v.doneAt=null;
+      if(!v.code)v.code=t.code||nextCode(b,v.phase);
+      Object.assign(t,v,{updatedAt:now,updatedBy:by})},`edited ${v.code||""} “${v.title}”`,"Task saved.");
+  }else{
+    const nid=uid("t");
+    await commit(b=>{const code=v.code||nextCode(b,v.phase);
+      b.tasks.push(Object.assign({id:nid},v,{code,postponed:0,createdAt:now,updatedAt:now,updatedBy:by,doneAt:v.status==="done"?now:null}))},
+      `added ${v.code||"a task"}: “${v.title}”`,"Task added.");
+  }
+}
+async function setStatus(id,s){const t=board.tasks.find(x=>x.id===id);if(!t||t.status===s)return;
+  const now=new Date().toISOString(),by=meName();
+  await commit(b=>{const x=b.tasks.find(y=>y.id===id);if(!x)return false;x.status=s;x.doneAt=s==="done"?now:null;x.updatedAt=now;x.updatedBy=by},
+    `moved ${t.code||""} “${t.title}” to ${ST[s]}`,s==="done"?"Nice work. Marked as done.":"Status updated.")}
+async function postpone(id,nd){const t=board.tasks.find(x=>x.id===id);if(!t||!nd)return;ppOpen=null;
+  const now=new Date().toISOString(),by=meName();
+  await commit(b=>{const x=b.tasks.find(y=>y.id===id);if(!x)return false;x.due=nd;x.postponed=(x.postponed||0)+1;x.updatedAt=now;x.updatedBy=by},
+    `postponed ${t.code||""} to ${fmtD(nd)}`,"Postponed to "+fmtD(nd)+".")}
+
+/* ---------------- GitHub connect ---------------- */
+function updGhBtn(){$("#ghBtn").textContent=token?(login?"@"+login:"GitHub connected"):"Connect GitHub";$("#ghOut").hidden=!token}
+function openGh(){$("#dgRepo").textContent=C.owner?`${C.owner}/${C.repo}`:"the repository";$("#ghTok").value="";$("#ghMsg").textContent=token?`Connected as @${login}.`:"";updGhBtn();$("#dlgGh").showModal()}
+async function checkAccess(){
+  if(!token||!C.owner)return;
+  try{const r=await gh(repoPath());if(r.ok){const j=await r.json();canPush=!!(j.permissions&&(j.permissions.push||j.permissions.admin))}
+    if(canPush===false)setNotice("perm",`Your GitHub account <b>@${esc(login)}</b> cannot write to <b>${esc(C.owner)}/${esc(C.repo)}</b>. Ask the repository owner to add you as a collaborator, then accept the invitation.`,"crit");
+    else setNotice("perm",null)}catch(e){}
+}
+async function connect(){
+  const v=$("#ghTok").value.trim();if(!v){$("#ghMsg").textContent="Paste a token first.";return}
+  $("#ghMsg").textContent="Checking…";
+  try{const r=await fetch(API+"/user",{headers:{Accept:"application/vnd.github+json",Authorization:"Bearer "+v}});
+    if(!r.ok){$("#ghMsg").textContent="GitHub did not accept this token.";return}
+    const u=await r.json();token=v;login=u.login;ls("soar.token",v);ls("soar.login",login);setNotice("tok",null);
+    await checkAccess();updGhBtn();autoMe();
+    $("#ghMsg").textContent=canPush===false?`Connected as @${login}, but this account has no write access yet.`:`Connected as @${login}.`;
+    etag=null;await pull(true);render();setTimeout(()=>{if($("#dlgGh").open&&canPush!==false)$("#dlgGh").close()},900);
+    schedule();
+  }catch(e){$("#ghMsg").textContent="Network error."}
+}
+
+/* ---------------- events ---------------- */
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-a]");if(!b)return;
+  const a=b.dataset.a,id=b.dataset.id,t=board&&board.tasks.find(x=>x.id===id);
+  switch(a){
+    case"mem":filt.mem=id;go("board");break;
+    case"phgo":go("plan");setTimeout(()=>{const el=document.getElementById("ph-"+id);if(el)el.scrollIntoView({block:"start",behavior:"smooth"})},30);break;
+    case"ppopen":ppOpen=ppOpen===id?null:id;renderBoard();break;
+    case"pp":if(t)await postpone(id,addDays(t.due&&t.due>=today()?t.due:today(),+b.dataset.d));break;
+    case"ppset":{const v=document.getElementById("ppd-"+id).value;if(v)await postpone(id,v);break}
+    case"edit":if(t)openEditor(t);break;
+    case"newin":openEditor(null,id);break;
+    case"del":delAsk=id;renderBoard();break;
+    case"delno":delAsk=null;renderBoard();break;
+    case"delyes":delAsk=null;if(t)await commit(x=>{const i=x.tasks.findIndex(y=>y.id===id);if(i<0)return false;x.tasks.splice(i,1)},`deleted ${t.code||""} “${t.title}”`,"Task deleted.");break;
+    case"ghopen":openGh();break;
+    case"mdel":delMem=+b.dataset.i;drawMem();break;
+    case"mdelno":delMem=null;drawMem();break;
+    case"mdelyes":draftMem.splice(+b.dataset.i,1);delMem=null;settingsDirty=true;drawMem();toast("Removed from the list. Select “Save members” to apply.");break;
+    case"pup":case"pdn":{const i=+b.dataset.i,j=a==="pup"?i-1:i+1;[draftPh[i],draftPh[j]]=[draftPh[j],draftPh[i]];settingsDirty=true;drawPh();break}
+    case"pdel":draftPh.splice(+b.dataset.i,1);settingsDirty=true;drawPh();toast("Removed from the list. Select “Save phases” to apply.");break;
+    case"impyes":doImport();break;
+    case"impno":pendingImport=null;$("#importConfirm").innerHTML="";break;
+  }
+});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"){const tr=e.target.closest&&e.target.closest("tr[data-a='edit']");if(tr){const t=board.tasks.find(x=>x.id===tr.dataset.id);if(t)openEditor(t)}}});
+document.addEventListener("change",e=>{const s=e.target.closest('select[data-a="st"]');if(s)setStatus(s.dataset.id,s.value)});
+document.addEventListener("input",e=>{
+  const el=e.target;
+  if(el.dataset.mi!==undefined){draftMem[+el.dataset.mi][el.dataset.k]=el.value;settingsDirty=true}
+  else if(el.dataset.pi!==undefined){draftPh[+el.dataset.pi][el.dataset.k]=el.value;settingsDirty=true}
+  else if(["sTitle","sSub","sWeek1"].includes(el.id))settingsDirty=true;
+});
+$("#newBtn").onclick=()=>openEditor(null);
+$("#tCancel").onclick=()=>$("#dlgTask").close();
+$("#taskForm").addEventListener("submit",e=>{e.preventDefault();saveEditor()});
+$("#tPhase").onchange=()=>{const d=$("#tDue");if(!editing&&(d.dataset.auto==="1"||!d.value)){const p=phase($("#tPhase").value);d.value=p&&p.end?p.end:"";d.dataset.auto="1"}};
+$("#tDue").oninput=()=>{$("#tDue").dataset.auto="0"};
+$("#ghBtn").onclick=openGh;$("#ghClose").onclick=()=>$("#dlgGh").close();$("#ghSave").onclick=connect;
+$("#ghTok").addEventListener("keydown",e=>{if(e.key==="Enter")connect()});
+$("#ghOut").onclick=()=>{token="";login="";canPush=null;ls("soar.token",null);ls("soar.login",null);setNotice("perm",null);updGhBtn();$("#ghMsg").textContent="Disconnected. The token was removed from this browser.";renderConn();schedule()};
+$("#meSel").onchange=e=>{ls("soar.me",e.target.value);render()};
+$("#q").oninput=e=>{filt.q=e.target.value.trim();renderBoard()};
+$("#fMem").onchange=e=>{filt.mem=e.target.value;renderBoard()};
+$("#fPh").onchange=e=>{filt.ph=e.target.value;renderBoard()};
+$("#fPr").onchange=e=>{filt.pr=e.target.value;renderBoard()};
+$("#clearF").onclick=()=>{filt={q:"",mem:"",ph:"",pr:""};$("#q").value="";$("#fPr").value="";fillSelects();renderBoard()};
+$("#addMem").onclick=()=>{draftMem.push({id:uid("m"),name:"New member",track:"",github:""});settingsDirty=true;drawMem();const ins=$("#memRows").querySelectorAll('input[data-k="name"]');ins[ins.length-1].select()};
+$("#addPh").onclick=()=>{const used=new Set(draftPh.map(p=>p.code));let c="K";for(let i=0;i<26;i++){const L=String.fromCharCode(65+i);if(!used.has(L)){c=L;break}}
+  draftPh.push({id:uid("p"),code:c,name:"New phase",proposal:"",timing:"",start:"",end:""});settingsDirty=true;drawPh()};
+$("#saveProj").onclick=async()=>{const v={title:$("#sTitle").value.trim()||"Team Board",subtitle:$("#sSub").value.trim(),week1:$("#sWeek1").value};
+  if(await commit(b=>{b.project=Object.assign({},b.project,v)},"updated the project details","Project saved."))settingsDirty=false};
+$("#saveMem").onclick=async()=>{
+  const list=draftMem.map(m=>({id:m.id,name:String(m.name||"").trim()||"Unnamed",track:String(m.track||"").trim(),github:String(m.github||"").trim().replace(/^@/,"")}));
+  const keep=new Set(list.map(m=>m.id));
+  if(await commit(b=>{b.members=list;b.tasks.forEach(t=>t.owners=t.owners.filter(o=>keep.has(o)))},"updated the team members","Members saved.")){settingsDirty=false;renderSettings()}};
+$("#savePh").onclick=async()=>{
+  const list=draftPh.map(p=>({id:p.id,code:String(p.code||"").trim()||"?",name:String(p.name||"").trim()||"Unnamed phase",proposal:String(p.proposal||"").trim(),timing:String(p.timing||"").trim(),start:p.start||"",end:p.end||""}));
+  const codes=list.map(p=>p.code);if(new Set(codes).size!==codes.length){toast("Each phase needs a different code.");return}
+  const keep=new Set(list.map(p=>p.id));
+  if(await commit(b=>{const used=new Set(b.tasks.map(t=>t.phase));if([...used].some(id=>id&&!keep.has(id)&&b.phases.some(p=>p.id===id)))return false;b.phases=list},"updated the plan phases","Phases saved.")){settingsDirty=false;renderSettings()}};
+$("#exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify(board,null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`board-backup-${today()}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)};
+$("#importFile").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
+  try{const j=normalize(JSON.parse(await f.text()));if(!j.tasks.length&&!j.members.length)throw 0;pendingImport=j;
+    $("#importConfirm").innerHTML=`<span class="small">Replace the whole board with <b>${esc(f.name)}</b> (${j.tasks.length} tasks)?</span> <button class="btn sm danger" data-a="impyes" type="button">Replace</button> <button class="btn sm ghost" data-a="impno" type="button">Cancel</button>`}
+  catch(_){toast("That file is not a board backup.")}};
+async function doImport(){const j=pendingImport;pendingImport=null;$("#importConfirm").innerHTML="";if(!j)return;
+  if(await commit(b=>{Object.keys(b).forEach(k=>delete b[k]);Object.assign(b,clone(j))},"imported a board backup","Backup imported."))renderSettings()}
+
+/* ---------------- routing & polling ---------------- */
+function go(v){if(location.hash!=="#"+v)location.hash=v;else route()}
+function route(){
+  const v=(location.hash||"#overview").slice(1);view=["overview","board","plan","settings"].includes(v)?v:"overview";
+  document.querySelectorAll("nav.tabs a").forEach(a=>a.setAttribute("aria-current",a.dataset.v===view?"page":"false"));
+  document.querySelectorAll("section.view").forEach(s=>s.hidden=s.id!=="v-"+view);
+  if(board){if(view==="board"){fillSelects();renderBoard()}if(view==="settings"&&!settingsDirty)renderSettings()}
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+let timer=null;
+function schedule(){clearInterval(timer);timer=setInterval(()=>{if(!document.hidden&&!saving&&C.owner)pull()},token?20000:120000)}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!saving&&C.owner)pull()});
+window.addEventListener("beforeunload",e=>{if(saving){e.preventDefault();e.returnValue=""}});
+
+(async function boot(){
+  updGhBtn();route();
+  await pull(true);
+  if(token){await checkAccess();renderConn()}
+  if(board)render();
+  schedule();
+})();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1142 @@
+{
+ "schema": 1,
+ "project": {
+  "title": "SOAR Team Board",
+  "subtitle": "AI-Powered Network Security Monitoring and Automated Response — Graduation Project",
+  "week1": "2026-10-19"
+ },
+ "members": [
+  {
+   "id": "m1",
+   "name": "Member 1",
+   "track": "Testbed & Automation",
+   "github": ""
+  },
+  {
+   "id": "m2",
+   "name": "Member 2",
+   "track": "Data Collection & Flow Sensor",
+   "github": ""
+  },
+  {
+   "id": "m3",
+   "name": "Member 3",
+   "track": "Supervised Detection (Stage 1a)",
+   "github": ""
+  },
+  {
+   "id": "m4",
+   "name": "Member 4",
+   "track": "Anomaly Detection (Stage 1b) & Evaluation",
+   "github": ""
+  },
+  {
+   "id": "m5",
+   "name": "Member 5",
+   "track": "Backend & SOAR",
+   "github": ""
+  },
+  {
+   "id": "m6",
+   "name": "Member 6",
+   "track": "Dashboard & Integration",
+   "github": ""
+  }
+ ],
+ "phases": [
+  {
+   "id": "A",
+   "code": "A",
+   "name": "Organization and setup",
+   "proposal": "—",
+   "timing": "Week 1",
+   "start": "2026-10-19",
+   "end": "2026-10-25"
+  },
+  {
+   "id": "B",
+   "code": "B",
+   "name": "Shared learning",
+   "proposal": "—",
+   "timing": "Weeks 1–2",
+   "start": "2026-10-19",
+   "end": "2026-11-01"
+  },
+  {
+   "id": "C",
+   "code": "C",
+   "name": "Track learning and a small prototype",
+   "proposal": "—",
+   "timing": "Weeks 3–4",
+   "start": "2026-11-02",
+   "end": "2026-11-15"
+  },
+  {
+   "id": "D",
+   "code": "D",
+   "name": "Design, contracts, and decision confirmation",
+   "proposal": "—",
+   "timing": "Weeks 3–5",
+   "start": "2026-11-02",
+   "end": "2026-11-22"
+  },
+  {
+   "id": "E",
+   "code": "E",
+   "name": "Testbed build, sensor, and data preparation",
+   "proposal": "Phase 1",
+   "timing": "After D",
+   "start": "",
+   "end": ""
+  },
+  {
+   "id": "F",
+   "code": "F",
+   "name": "Ingestion, sensor pipeline, and Stage 1a training",
+   "proposal": "Phase 2",
+   "timing": "—",
+   "start": "",
+   "end": ""
+  },
+  {
+   "id": "G",
+   "code": "G",
+   "name": "Checkpoint: end-to-end demo without response",
+   "proposal": "Phase 3",
+   "timing": "—",
+   "start": "",
+   "end": ""
+  },
+  {
+   "id": "H",
+   "code": "H",
+   "name": "Response and device integration",
+   "proposal": "Phase 4",
+   "timing": "—",
+   "start": "",
+   "end": ""
+  },
+  {
+   "id": "I",
+   "code": "I",
+   "name": "Stage 1b, decision rule, and dashboard",
+   "proposal": "Phase 5",
+   "timing": "—",
+   "start": "",
+   "end": ""
+  },
+  {
+   "id": "J",
+   "code": "J",
+   "name": "Integration, evaluation, and documentation",
+   "proposal": "Phases 6–7",
+   "timing": "—",
+   "start": "",
+   "end": ""
+  }
+ ],
+ "tasks": [
+  {
+   "id": "a1",
+   "code": "A1",
+   "title": "Confirm roles, tracks, and backups (Section 2)",
+   "doneWhen": "Everyone knows what they own and whom they back up",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2",
+    "m3",
+    "m4",
+    "m5",
+    "m6"
+   ],
+   "phase": "A",
+   "due": "2026-10-25",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "a2",
+   "code": "A2",
+   "title": "Create the repository (Section 11.3)",
+   "doneWhen": "Everyone has cloned it and opened a test PR",
+   "notes": "",
+   "owners": [
+    "m6",
+    "m1"
+   ],
+   "phase": "A",
+   "due": "2026-10-25",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "a3",
+   "code": "A3",
+   "title": "Communication channel, weekly meeting, task board",
+   "doneWhen": "First meeting held",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2",
+    "m3",
+    "m4",
+    "m5",
+    "m6"
+   ],
+   "phase": "A",
+   "due": "2026-10-25",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "a4",
+   "code": "A4",
+   "title": "Install the tools (Section 12); Member 1 confirms kvm-ok",
+   "doneWhen": "All tools work",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2",
+    "m3",
+    "m4",
+    "m5",
+    "m6"
+   ],
+   "phase": "A",
+   "due": "2026-10-25",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "a5",
+   "code": "A5",
+   "title": "Download corrected CIC-IDS2017, the corrected CICFlowMeter, USB-IDS-1, the VyOS image, and Docker images to a USB drive",
+   "doneWhen": "USB drive ready",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m3"
+   ],
+   "phase": "A",
+   "due": "2026-10-25",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "b1",
+   "code": "B1",
+   "title": "Shared skills (Section 14.1)",
+   "doneWhen": "Exercises completed",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2",
+    "m3",
+    "m4",
+    "m5",
+    "m6"
+   ],
+   "phase": "B",
+   "due": "2026-11-01",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "b2",
+   "code": "B2",
+   "title": "Walk-through of Figures 1 and 2 and the decision rule",
+   "doneWhen": "Each member explains one connection in their own words",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m4",
+    "m6"
+   ],
+   "phase": "B",
+   "due": "2026-11-01",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "c1",
+   "code": "C1",
+   "title": "Track skills (Section 14.2)",
+   "doneWhen": "Track exercise completed",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2",
+    "m3",
+    "m4",
+    "m5",
+    "m6"
+   ],
+   "phase": "C",
+   "due": "2026-11-15",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "c2",
+   "code": "C2",
+   "title": "Smallest testbed: VyOS + one FRR router + one host",
+   "doneWhen": "ping works across the devices",
+   "notes": "",
+   "owners": [
+    "m1"
+   ],
+   "phase": "C",
+   "due": "2026-11-15",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "c3",
+   "code": "C3",
+   "title": "Run the corrected CICFlowMeter on a small capture and load it in pandas",
+   "doneWhen": "Columns match the corrected dataset",
+   "notes": "",
+   "owners": [
+    "m2",
+    "m3"
+   ],
+   "phase": "C",
+   "due": "2026-11-15",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "c4",
+   "code": "C4",
+   "title": "Train a first Random Forest on a sample of the corrected data",
+   "doneWhen": "Per-class report on the sample",
+   "notes": "",
+   "owners": [
+    "m3"
+   ],
+   "phase": "C",
+   "due": "2026-11-15",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "d1",
+   "code": "D1",
+   "title": "Approve the address plan and topology, including the sensor",
+   "doneWhen": "address-plan.md",
+   "notes": "",
+   "owners": [
+    "m1"
+   ],
+   "phase": "D",
+   "due": "2026-11-22",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "d2",
+   "code": "D2",
+   "title": "Confirm the proposed values of Section 3 and Section 2.7",
+   "doneWhen": "decisions-log.md updated",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2",
+    "m3",
+    "m4",
+    "m5",
+    "m6"
+   ],
+   "phase": "D",
+   "due": "2026-11-22",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "d3",
+   "code": "D3",
+   "title": "Write the interface contracts (Section 13)",
+   "doneWhen": "api-contracts.md approved",
+   "notes": "",
+   "owners": [
+    "m2",
+    "m3",
+    "m4",
+    "m5"
+   ],
+   "phase": "D",
+   "due": "2026-11-22",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "d4",
+   "code": "D4",
+   "title": "Tier rules, playbooks, protected list",
+   "doneWhen": "Approved by the supervisor",
+   "notes": "",
+   "owners": [
+    "m5"
+   ],
+   "phase": "D",
+   "due": "2026-11-22",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "d5",
+   "code": "D5",
+   "title": "Evaluation targets (Section 9)",
+   "doneWhen": "Targets written down",
+   "notes": "",
+   "owners": [
+    "m4"
+   ],
+   "phase": "D",
+   "due": "2026-11-22",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "d6",
+   "code": "D6",
+   "title": "Attack scenarios and benign-traffic plan (A, B, C and others)",
+   "doneWhen": "Tools, rates, and steps for each scenario",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m3",
+    "m4"
+   ],
+   "phase": "D",
+   "due": "2026-11-22",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "d7",
+   "code": "D7",
+   "title": "Dashboard wireframe",
+   "doneWhen": "Wireframe approved",
+   "notes": "",
+   "owners": [
+    "m6"
+   ],
+   "phase": "D",
+   "due": "2026-11-22",
+   "status": "todo",
+   "priority": "high",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e1",
+   "code": "E1",
+   "title": "VyOS + FRR A and B; OSPF",
+   "doneWhen": "Neighbours up; routes correct",
+   "notes": "",
+   "owners": [
+    "m1"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e2",
+   "code": "E2",
+   "title": "OVS, VLANs, endpoints; NAT and DNAT",
+   "doneWhen": "VLAN 10 ↔ VLAN 20; attacker reaches the web server",
+   "notes": "",
+   "owners": [
+    "m1"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e3",
+   "code": "E3",
+   "title": "Management network, SSH servers and keys, NTP, isolation",
+   "doneWhen": "SSH to every device; no transit between networks",
+   "notes": "",
+   "owners": [
+    "m1"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e4",
+   "code": "E4",
+   "title": "Mirror on OVS B and the sensor container",
+   "doneWhen": "Sensor sees both directions of test traffic",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e5",
+   "code": "E5",
+   "title": "Block hook proof of concept with timing",
+   "doneWhen": "Block works, is verified, and is rolled back",
+   "notes": "",
+   "owners": [
+    "m1"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e6",
+   "code": "E6",
+   "title": "Syslog, SNMPv3, and flow export",
+   "doneWhen": "Collector receives data",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e7",
+   "code": "E7",
+   "title": "Release testbed-v1.0",
+   "doneWhen": "Numbered version with a changelog",
+   "notes": "",
+   "owners": [
+    "m1"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e8",
+   "code": "E8",
+   "title": "(In parallel) corrected-data preparation and IG",
+   "doneWhen": "Cleaned training split; IG ranking",
+   "notes": "",
+   "owners": [
+    "m3"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "e9",
+   "code": "E9",
+   "title": "(In parallel) FastAPI skeleton and database",
+   "doneWhen": "Endpoints with mock data",
+   "notes": "",
+   "owners": [
+    "m5"
+   ],
+   "phase": "E",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "f1",
+   "code": "F1",
+   "title": "Ingestion: Syslog/SNMP/NetFlow → unified events → PostgreSQL",
+   "doneWhen": "Testbed events in the database",
+   "notes": "",
+   "owners": [
+    "m2"
+   ],
+   "phase": "F",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "f2",
+   "code": "F2",
+   "title": "Sensor pipeline: capture files → CICFlowMeter → feature records; split-flow measurement",
+   "doneWhen": "Feature files every capture window; split share measured",
+   "notes": "",
+   "owners": [
+    "m2"
+   ],
+   "phase": "F",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "f3",
+   "code": "F3",
+   "title": "Feature-compatibility test",
+   "doneWhen": "Columns, types, and order match",
+   "notes": "",
+   "owners": [
+    "m2",
+    "m3"
+   ],
+   "phase": "F",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "f4",
+   "code": "F4",
+   "title": "Train RF and XGBoost; per-class report; calibration check",
+   "doneWhen": "Report with sample sizes and spread over seeds",
+   "notes": "",
+   "owners": [
+    "m3"
+   ],
+   "phase": "F",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "f5",
+   "code": "F5",
+   "title": "First autoencoder on CIC-IDS2017 benign flows (Attempted excluded)",
+   "doneWhen": "Baseline anomaly scores",
+   "notes": "",
+   "owners": [
+    "m4"
+   ],
+   "phase": "F",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "g1",
+   "code": "G1",
+   "title": "Testbed traffic → sensor → detection → alert on the dashboard (led by Member 6)",
+   "doneWhen": "Live demo for the supervisor",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2",
+    "m3",
+    "m4",
+    "m5",
+    "m6"
+   ],
+   "phase": "G",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "g2",
+   "code": "G2",
+   "title": "First false-positive measurement on benign testbed traffic",
+   "doneWhen": "Initial figure and proposed fixes",
+   "notes": "",
+   "owners": [
+    "m4"
+   ],
+   "phase": "G",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "h1",
+   "code": "H1",
+   "title": "Playbooks, tier decision, approval queue, protected list, cooldown",
+   "doneWhen": "One automatic and two approval playbooks working",
+   "notes": "",
+   "owners": [
+    "m5"
+   ],
+   "phase": "H",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "h2",
+   "code": "H2",
+   "title": "Hooks for actions 1–3 with Read → Apply → Verify and rollback",
+   "doneWhen": "pytest passes for every hook",
+   "notes": "",
+   "owners": [
+    "m1"
+   ],
+   "phase": "H",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "h3",
+   "code": "H3",
+   "title": "Block expiry, idempotency, retries, action log",
+   "doneWhen": "Complete record of every action",
+   "notes": "",
+   "owners": [
+    "m5",
+    "m1"
+   ],
+   "phase": "H",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "h4",
+   "code": "H4",
+   "title": "Approve / reject / roll-back in the dashboard",
+   "doneWhen": "Analyst approves and sees the verified result",
+   "notes": "",
+   "owners": [
+    "m6"
+   ],
+   "phase": "H",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "i1",
+   "code": "I1",
+   "title": "Collect at least 50,000 benign testbed flows over several sessions",
+   "doneWhen": "Benign capture stored and documented",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m4"
+   ],
+   "phase": "I",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "i2",
+   "code": "I2",
+   "title": "Autoencoder and Isolation Forest on benign testbed traffic; τA",
+   "doneWhen": "τA gives the target FPR on held-out benign traffic",
+   "notes": "",
+   "owners": [
+    "m4"
+   ],
+   "phase": "I",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "i3",
+   "code": "I3",
+   "title": "Decision rule service with per-host aggregation",
+   "doneWhen": "Every flow gets a tier; alerts aggregated",
+   "notes": "",
+   "owners": [
+    "m3",
+    "m4"
+   ],
+   "phase": "I",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "i4",
+   "code": "I4",
+   "title": "Explanations in every alert; incident view and timeline",
+   "doneWhen": "Approval request shows top features and context",
+   "notes": "",
+   "owners": [
+    "m3",
+    "m4",
+    "m6"
+   ],
+   "phase": "I",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "j1",
+   "code": "J1",
+   "title": "Full system with docker compose up",
+   "doneWhen": "All components run together",
+   "notes": "",
+   "owners": [
+    "m6"
+   ],
+   "phase": "J",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "j2",
+   "code": "J2",
+   "title": "Scenarios A, B, C and others, labeled in the run table",
+   "doneWhen": "Each run documented with steps and results",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m3"
+   ],
+   "phase": "J",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "j3",
+   "code": "J3",
+   "title": "Stage 1a on testbed traffic; retrain with testbed attacks; USB-IDS-1; withheld families",
+   "doneWhen": "Before/after results per attack",
+   "notes": "",
+   "owners": [
+    "m3"
+   ],
+   "phase": "J",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "j4",
+   "code": "J4",
+   "title": "MTTD, MTTC (automatic and approved), FPR, manual baseline",
+   "doneWhen": "Evaluation tables",
+   "notes": "",
+   "owners": [
+    "m2",
+    "m4",
+    "m5"
+   ],
+   "phase": "J",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "j5",
+   "code": "J5",
+   "title": "Safety check: 100% approval routing; zero unintended disruptions",
+   "doneWhen": "Safety report",
+   "notes": "",
+   "owners": [
+    "m4",
+    "m5"
+   ],
+   "phase": "J",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "j6",
+   "code": "J6",
+   "title": "Documentation, user manual, presentation, defense rehearsal (questions in the Final Review Report)",
+   "doneWhen": "Final deliverables",
+   "notes": "",
+   "owners": [
+    "m1",
+    "m2",
+    "m3",
+    "m4",
+    "m5",
+    "m6"
+   ],
+   "phase": "J",
+   "due": "",
+   "status": "todo",
+   "priority": "normal",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  },
+  {
+   "id": "j7",
+   "code": "J7",
+   "title": "Extensions, if time remains",
+   "doneWhen": "Optional",
+   "notes": "",
+   "owners": [],
+   "phase": "J",
+   "due": "",
+   "status": "todo",
+   "priority": "low",
+   "postponed": 0,
+   "createdAt": "2026-10-19T17:00:00.000Z",
+   "updatedAt": "2026-10-19T17:00:00.000Z",
+   "updatedBy": "Handbook import",
+   "doneAt": null
+  }
+ ],
+ "activity": [
+  {
+   "at": "2026-10-19T17:00:00.000Z",
+   "by": "Handbook import",
+   "text": "Board created from the Team Handbook: 10 phases, 49 tasks."
+  }
+ ],
+ "meta": {
+  "updatedAt": "2026-10-19T17:00:00.000Z",
+  "updatedBy": "Handbook import"
+ }
+}
