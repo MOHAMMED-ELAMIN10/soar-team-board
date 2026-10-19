@@ -14,27 +14,27 @@
   },
   {
    "id": "m2",
-   "name": "Member 2",
+   "name": "Karim Mohamed",
    "track": "Data Collection & Flow Sensor",
    "github": ""
   },
   {
    "id": "m3",
-   "name": "Member 3",
+   "name": "Eyad Mohamed",
    "track": "Supervised Detection (Stage 1a)",
    "github": ""
   },
   {
    "id": "m4",
-   "name": "Member 4",
+   "name": "Ahmed Sameh",
    "track": "Anomaly Detection (Stage 1b) & Evaluation",
    "github": ""
   },
   {
    "id": "m5",
-   "name": "Member 5",
+   "name": "Mohamed Emad",
    "track": "Backend & SOAR",
-   "github": ""
+   "github": "MoEmad05"
   },
   {
    "id": "m6",
@@ -1130,6 +1130,11 @@
  ],
  "activity": [
   {
+   "at": "2026-10-19T18:12:37.256Z",
+   "by": "Mohammed Elamin",
+   "text": "updated the team members"
+  },
+  {
    "at": "2026-10-19T18:09:10.646Z",
    "by": "Mohammed Elamin",
    "text": "updated the team members"
@@ -1151,7 +1156,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-19T18:09:10.646Z",
+  "updatedAt": "2026-10-19T18:12:37.256Z",
   "updatedBy": "Mohammed Elamin"
  }
 }
