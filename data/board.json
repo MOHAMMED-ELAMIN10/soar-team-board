@@ -38,7 +38,7 @@
   },
   {
    "id": "m6",
-   "name": "Member 6",
+   "name": "Mohamed Menshawy",
    "track": "Dashboard & Integration",
    "github": "Mohamed-Mensh-06"
   }
@@ -1130,6 +1130,11 @@
  ],
  "activity": [
   {
+   "at": "2026-10-19T18:09:10.646Z",
+   "by": "Mohammed Elamin",
+   "text": "updated the team members"
+  },
+  {
    "at": "2026-10-19T18:08:51.673Z",
    "by": "Mohammed Elamin",
    "text": "updated the team members"
@@ -1146,7 +1151,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-19T18:08:51.673Z",
+  "updatedAt": "2026-10-19T18:09:10.646Z",
   "updatedBy": "Mohammed Elamin"
  }
 }
