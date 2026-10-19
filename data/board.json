@@ -16,7 +16,7 @@
    "id": "m2",
    "name": "Karim Mohamed",
    "track": "Data Collection & Flow Sensor",
-   "github": ""
+   "github": "KarimMohamed222"
   },
   {
    "id": "m3",
@@ -1130,6 +1130,11 @@
  ],
  "activity": [
   {
+   "at": "2026-10-19T18:13:04.786Z",
+   "by": "Mohammed Elamin",
+   "text": "updated the team members"
+  },
+  {
    "at": "2026-10-19T18:12:37.256Z",
    "by": "Mohammed Elamin",
    "text": "updated the team members"
@@ -1156,7 +1161,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-19T18:12:37.256Z",
+  "updatedAt": "2026-10-19T18:13:04.786Z",
   "updatedBy": "Mohammed Elamin"
  }
 }
