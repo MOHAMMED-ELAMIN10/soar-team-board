@@ -22,7 +22,7 @@
    "id": "m3",
    "name": "Eyad Mohamed",
    "track": "Supervised Detection (Stage 1a)",
-   "github": ""
+   "github": "Eyad-mohamed7"
   },
   {
    "id": "m4",
@@ -1130,6 +1130,11 @@
  ],
  "activity": [
   {
+   "at": "2026-10-19T18:30:25.119Z",
+   "by": "Mohammed Elamin",
+   "text": "updated the team members"
+  },
+  {
    "at": "2026-10-19T18:13:04.786Z",
    "by": "Mohammed Elamin",
    "text": "updated the team members"
@@ -1161,7 +1166,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-19T18:13:04.786Z",
+  "updatedAt": "2026-10-19T18:30:25.119Z",
   "updatedBy": "Mohammed Elamin"
  }
 }
