@@ -683,12 +683,12 @@
    ],
    "phase": "E",
    "due": "",
-   "status": "todo",
+   "status": "doing",
    "priority": "normal",
    "postponed": 0,
    "createdAt": "2026-10-19T17:00:00.000Z",
-   "updatedAt": "2026-10-19T17:00:00.000Z",
-   "updatedBy": "Handbook import",
+   "updatedAt": "2026-10-21T07:57:58.325Z",
+   "updatedBy": "Mohamed Emad",
    "doneAt": null
   },
   {
@@ -1130,6 +1130,11 @@
  ],
  "activity": [
   {
+   "at": "2026-10-21T07:57:58.332Z",
+   "by": "Mohamed Emad",
+   "text": "moved E9 “(In parallel) FastAPI skeleton and database” to In progress"
+  },
+  {
    "at": "2026-10-19T18:58:41.898Z",
    "by": "Mohammed Elamin",
    "text": "updated the team members"
@@ -1171,7 +1176,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-19T18:58:41.898Z",
-  "updatedBy": "Mohammed Elamin"
+  "updatedAt": "2026-10-21T07:57:58.332Z",
+  "updatedBy": "Mohamed Emad"
  }
 }
