@@ -1126,28 +1126,14 @@
    "updatedAt": "2026-10-19T17:00:00.000Z",
    "updatedBy": "Handbook import",
    "doneAt": null
-  },
-  {
-   "id": "tkwt8ml",
-   "title": "test",
-   "phase": "A",
-   "code": "A6",
-   "due": "2026-10-25",
-   "priority": "normal",
-   "status": "todo",
-   "owners": [
-    "m5"
-   ],
-   "doneWhen": "",
-   "notes": "test",
-   "postponed": 0,
-   "createdAt": "2026-10-21T08:17:54.907Z",
-   "updatedAt": "2026-10-21T08:17:54.907Z",
-   "updatedBy": "Mohamed Emad",
-   "doneAt": null
   }
  ],
  "activity": [
+  {
+   "at": "2026-10-21T08:18:30.934Z",
+   "by": "Mohamed Emad",
+   "text": "deleted A6 “test”"
+  },
   {
    "at": "2026-10-21T08:17:54.920Z",
    "by": "Mohamed Emad",
@@ -1200,7 +1186,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-21T08:17:54.920Z",
+  "updatedAt": "2026-10-21T08:18:30.934Z",
   "updatedBy": "Mohamed Emad"
  }
 }
