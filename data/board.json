@@ -196,12 +196,12 @@
    ],
    "phase": "A",
    "due": "2026-10-25",
-   "status": "todo",
+   "status": "doing",
    "priority": "high",
    "postponed": 0,
    "createdAt": "2026-10-19T17:00:00.000Z",
-   "updatedAt": "2026-10-19T17:00:00.000Z",
-   "updatedBy": "Handbook import",
+   "updatedAt": "2026-10-22T18:17:41.210Z",
+   "updatedBy": "Mohammed Elamin",
    "doneAt": null
   },
   {
@@ -1130,6 +1130,11 @@
  ],
  "activity": [
   {
+   "at": "2026-10-22T18:17:41.216Z",
+   "by": "Mohammed Elamin",
+   "text": "moved A3 “Communication channel, weekly meeting, task board” to In progress"
+  },
+  {
    "at": "2026-10-22T18:17:22.210Z",
    "by": "Mohammed Elamin",
    "text": "moved A2 “Create the repository (Section 11.3)” to In progress"
@@ -1196,7 +1201,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-22T18:17:22.210Z",
+  "updatedAt": "2026-10-22T18:17:41.216Z",
   "updatedBy": "Mohammed Elamin"
  }
 }
