@@ -152,12 +152,12 @@
    ],
    "phase": "A",
    "due": "2026-10-25",
-   "status": "todo",
+   "status": "doing",
    "priority": "high",
    "postponed": 0,
    "createdAt": "2026-10-19T17:00:00.000Z",
-   "updatedAt": "2026-10-19T17:00:00.000Z",
-   "updatedBy": "Handbook import",
+   "updatedAt": "2026-10-22T18:17:03.885Z",
+   "updatedBy": "Mohammed Elamin",
    "doneAt": null
   },
   {
@@ -1130,6 +1130,11 @@
  ],
  "activity": [
   {
+   "at": "2026-10-22T18:17:03.892Z",
+   "by": "Mohammed Elamin",
+   "text": "moved A1 “Confirm roles, tracks, and backups (Section 2)” to In progress"
+  },
+  {
    "at": "2026-10-21T08:18:30.934Z",
    "by": "Mohamed Emad",
    "text": "deleted A6 “test”"
@@ -1186,7 +1191,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-21T08:18:30.934Z",
-  "updatedBy": "Mohamed Emad"
+  "updatedAt": "2026-10-22T18:17:03.892Z",
+  "updatedBy": "Mohammed Elamin"
  }
 }
