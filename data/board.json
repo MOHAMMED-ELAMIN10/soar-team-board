@@ -244,7 +244,7 @@
    "priority": "high",
    "postponed": 0,
    "createdAt": "2026-10-19T17:00:00.000Z",
-   "updatedAt": "2026-10-22T18:18:08.985Z",
+   "updatedAt": "2026-10-22T18:18:12.973Z",
    "updatedBy": "Mohammed Elamin",
    "doneAt": null
   },
@@ -1130,6 +1130,11 @@
  ],
  "activity": [
   {
+   "at": "2026-10-22T18:18:15.059Z",
+   "by": "Mohammed Elamin",
+   "text": "moved A5 “Download corrected CIC-IDS2017, the corrected CICFlowMeter, USB-IDS-1, the VyOS image, and Docker images to a USB drive” to In progress"
+  },
+  {
    "at": "2026-10-22T18:18:10.926Z",
    "by": "Mohammed Elamin",
    "text": "moved A5 “Download corrected CIC-IDS2017, the corrected CICFlowMeter, USB-IDS-1, the VyOS image, and Docker images to a USB drive” to In progress"
@@ -1211,7 +1216,7 @@
   }
  ],
  "meta": {
-  "updatedAt": "2026-10-22T18:18:10.926Z",
+  "updatedAt": "2026-10-22T18:18:15.059Z",
   "updatedBy": "Mohammed Elamin"
  }
 }
